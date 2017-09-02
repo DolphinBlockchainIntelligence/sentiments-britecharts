@@ -1,7 +1,7 @@
 <template style="height: 100%">
   <div>
-    <div :id="'sentimentsBritechartsStackedArea'+id" class="sentimentsBritechartsStackedArea"></div>
-    <div :id="'sentimentsBritechartsStackedAreaBrush'+id" class="sentimentsBritechartsStackedAreaBrush"></div>
+    <div id="sentimentsBritechartsStackedArea" class="sentimentsBritechartsStackedArea"></div>
+    <div id="sentimentsBritechartsStackedAreaBrush" class="sentimentsBritechartsStackedAreaBrush"></div>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
         let containerHeight = document.documentElement.clientHeight
         let containerSize = (document.documentElement.clientWidth <= document.documentElement.clientHeight) ? document.documentElement.clientWidth : document.documentElement.clientHeight
 
-        var container = d3Selection.select('#sentimentsBritechartsStackedArea'+this.id)
+        var container = d3Selection.select('#sentimentsBritechartsStackedArea')
         var stackedArea = new StackedArea()
         var chartTooltip = new ChartTooltip()
         var brushChart = new BrushChart()
@@ -80,17 +80,28 @@ export default {
           .height(100)
           .on('customBrushStart', function(brushExtent) {
             console.log('brush start')
+            console.log(brushExtent)
             // var format = d3TimeFormat.timeFormat('%m/%d/%Y');
             // d3Selection.select('.js-start-date').text(format(brushExtent[0]));
             // d3Selection.select('.js-end-date').text(format(brushExtent[1]));
             // d3Selection.select('.js-date-range').classed('is-hidden', false);
             // // Filter
-            // d3Selection.selectAll('.js-line-chart-container .line-chart').remove();
-            // createLineChart(optionalColorSchema ? optionalColorSchema : null, filterData(brushExtent[0], brushExtent[1]));
+            d3Selection.selectAll('#sentimentsBritechartsStackedArea .stacked-area').remove()
+            // stackedArea(optionalColorSchema ? optionalColorSchema : null, filterData(brushExtent[0], brushExtent[1]))
+            stackedArea
+              .isAnimated(true)
+              .tooltipThreshold(600)
+              .width(containerWidth)
+              .height(containerHeight - 100)
+              .colorSchema(colorSchemas.sentimentsStackedArea)
+              .grid('horizontal')
+              .on('customMouseOver', chartTooltip.show)
+              .on('customMouseMove', chartTooltip.update)
+              .on('customMouseOut', chartTooltip.hide)
           })
         container.datum(this.data).call(stackedArea)
-        var tooltipContainer = d3Selection.select('#sentimentsBritechartsStackedArea'+this.id+' .metadata-group .vertical-marker-container')
-        var brushContainer = d3Selection.select('#sentimentsBritechartsStackedAreaBrush'+this.id)
+        var tooltipContainer = d3Selection.select('#sentimentsBritechartsStackedArea .metadata-group .vertical-marker-container')
+        var brushContainer = d3Selection.select('#sentimentsBritechartsStackedAreaBrush')
         tooltipContainer.datum([]).call(chartTooltip)
         brushContainer.datum(this.data).call(brushChart)
       })
@@ -104,7 +115,7 @@ export default {
       let containerHeight = document.documentElement.clientHeight
       let containerSize = (document.documentElement.clientWidth <= document.documentElement.clientHeight) ? document.documentElement.clientWidth : document.documentElement.clientHeight
 
-      var container = d3Selection.select('#sentimentsBritechartsStackedArea'+this.id)
+      var container = d3Selection.select('#sentimentsBritechartsStackedArea')
       var stackedArea = new StackedArea()
       if (container.node()) {
           stackedArea
@@ -121,6 +132,10 @@ export default {
 </script>
 
 
+<style lang="sass">
+body
+  margin: 0
+</style>
 <style lang="sass" scoped>
 .sentimentsBritechartsStackedArea
   width: 100%
