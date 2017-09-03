@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import SentimentsBritechartsStackedArea from '@/SentimentsBritechartsStackedArea'
-import SentimentsBritechartsDonut from '@/components/widgets/SentimentsBritechartsDonut'
-import SentimentsBritechartsLine from '@/components/widgets/SentimentsBritechartsLine'
+import SentimentsBritechartsDonut from '@/SentimentsBritechartsDonut'
+import SentimentsBritechartsLine from '@/SentimentsBritechartsLine'
 
 Vue.use(Router)
 export default new Router({

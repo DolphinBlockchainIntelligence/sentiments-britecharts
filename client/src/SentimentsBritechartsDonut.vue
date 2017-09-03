@@ -13,7 +13,7 @@ import moment from 'moment'
 const DonutChart = require('britecharts/dist/umd/donut.min')
 const LegendChart = require('britecharts/dist/umd/legend.min')
 const d3Selection = require('d3-selection')
-const colorSchemas = require('../../assets/colors').colorSchemas
+const colorSchemas = require('./assets/colors').colorSchemas
 import 'britecharts/dist/css/britecharts.min.css'
 export default {
   name: "sentimentsBritechartsDonut",

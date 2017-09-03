@@ -86,7 +86,7 @@ export default {
             // d3Selection.select('.js-end-date').text(format(brushExtent[1]));
             // d3Selection.select('.js-date-range').classed('is-hidden', false);
             // // Filter
-            d3Selection.selectAll('#sentimentsBritechartsStackedArea .stacked-area').remove()
+            // d3Selection.selectAll('#sentimentsBritechartsStackedArea .stacked-area').remove()
             // stackedArea(optionalColorSchema ? optionalColorSchema : null, filterData(brushExtent[0], brushExtent[1]))
             stackedArea
               .isAnimated(true)
